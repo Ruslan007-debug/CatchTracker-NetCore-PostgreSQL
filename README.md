@@ -24,4 +24,4 @@ Coursework project for "Object-Oriented Programming C#" at DUICT.
 
 # Author
 
-Your Name | [@Ruslan007-debug](https://github.com/Ruslan007-debug)
+[@Ruslan007-debug](https://github.com/Ruslan007-debug)
