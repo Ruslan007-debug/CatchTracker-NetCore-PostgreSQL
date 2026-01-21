@@ -1,0 +1,6 @@
+@CatchTrackerApi_HostAddress = http://localhost:5104
+
+GET {{CatchTrackerApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
