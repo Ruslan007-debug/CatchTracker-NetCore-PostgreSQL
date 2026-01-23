@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using CatchTrackerApi.Data;
 using DotNetEnv;
+using CatchTrackerApi.Interfaces.RepoInterfaces;
+using CatchTrackerApi.Repos;
 
 namespace CatchTrackerApi
 {
@@ -29,6 +31,8 @@ namespace CatchTrackerApi
             // Тепер, коли ви будете викликати GetConnectionString, 
             // .NET автоматично шукатиме відповідні значення
             var connectionString = env.Configuration.GetConnectionString("DefaultConnection");
+
+            builder.Services.AddScoped<IFishTypeRepository, FishTypeRepository>();
 
             var app = builder.Build();
 
