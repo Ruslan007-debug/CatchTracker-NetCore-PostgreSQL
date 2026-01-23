@@ -1,6 +1,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using CatchTrackerApi.Data;
+using DotNetEnv;
 
 namespace CatchTrackerApi
 {
@@ -16,6 +17,18 @@ namespace CatchTrackerApi
 
             
             builder.Services.AddControllers();
+
+            var env = WebApplication.CreateBuilder(args);
+
+            // 1. Завантажуємо змінні з .env файлу
+            DotNetEnv.Env.Load();
+
+            // 2. Підставляємо змінні в конфігурацію
+            builder.Configuration.AddEnvironmentVariables();
+
+            // Тепер, коли ви будете викликати GetConnectionString, 
+            // .NET автоматично шукатиме відповідні значення
+            var connectionString = env.Configuration.GetConnectionString("DefaultConnection");
 
             var app = builder.Build();
 
