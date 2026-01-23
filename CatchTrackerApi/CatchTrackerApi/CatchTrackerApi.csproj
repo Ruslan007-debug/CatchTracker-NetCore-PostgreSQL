@@ -18,10 +18,8 @@
 
   <ItemGroup>
     <Folder Include="Interfaces\ServiceInterfaces\" />
-    <Folder Include="Interfaces\RepoInterfaces\" />
     <Folder Include="MiddleWare\" />
     <Folder Include="Services\" />
-    <Folder Include="Repos\" />
   </ItemGroup>
 
 </Project>
