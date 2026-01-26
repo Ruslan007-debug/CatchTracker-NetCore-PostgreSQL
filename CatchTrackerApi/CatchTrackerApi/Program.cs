@@ -4,6 +4,7 @@ using CatchTrackerApi.Data;
 using DotNetEnv;
 using CatchTrackerApi.Interfaces.RepoInterfaces;
 using CatchTrackerApi.Repos;
+using CatchTrackerApi.Interfaces.ServiceInterfaces;
 
 namespace CatchTrackerApi
 {
@@ -32,8 +33,11 @@ namespace CatchTrackerApi
             // .NET автоматично шукатиме відповідні значення
             var connectionString = env.Configuration.GetConnectionString("DefaultConnection");
 
+            builder.Services.AddSingleton<FishingDbContext>();
             builder.Services.AddScoped<IFishTypeRepository, FishTypeRepository>();
+            builder.Services.AddScoped<IFishTypeService, IFishTypeService>();
 
+            builder.Services.AddControllers();
             var app = builder.Build();
 
             
