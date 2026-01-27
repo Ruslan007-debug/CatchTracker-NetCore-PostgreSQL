@@ -33,6 +33,8 @@ namespace CatchTrackerApi
             // 4. Реєструємо репозиторії та сервіси
             builder.Services.AddScoped<IFishTypeRepository, FishTypeRepository>();
             builder.Services.AddScoped<IFishTypeService, FishTypeServise>();
+            builder.Services.AddScoped<IPlaceRepository, PlaceRepository>();
+            builder.Services.AddScoped<IPlaceService, PlaceService>();
 
             builder.Services.AddControllers();
 
