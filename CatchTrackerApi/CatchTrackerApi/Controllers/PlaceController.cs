@@ -1,19 +1,21 @@
-﻿using CatchTrackerApi.Interfaces.ServiceInterfaces;
+﻿using CatchTrackerApi.DTOs.PlaceDTOs;
+using CatchTrackerApi.Interfaces.ServiceInterfaces;
 using CatchTrackerApi.Mappers;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using CatchTrackerApi.DTOs.FishTypeDTOs;
 
 namespace CatchTrackerApi.Controllers
 {
-    [Route("api/FishTypes")]
-    [ApiController]
-    public class FishTypeController: ControllerBase
-    {
-        private readonly IFishTypeService _fishTypeService;
+    [Route("api/Places")]
 
-        public FishTypeController(IFishTypeService fishTypeService)
+    [ApiController]
+    public class PlaceController : ControllerBase
+    {
+        private readonly IPlaceService _placeService;
+
+        public PlaceController(IPlaceService placeService)
         {
-            _fishTypeService = fishTypeService;
+            _placeService = placeService;
         }
 
         [HttpGet]
@@ -25,9 +27,9 @@ namespace CatchTrackerApi.Controllers
             }
             try
             {
-                var types = await _fishTypeService.GetAllAsync();
-                var dtoTypes = types.Select(t => t.ToFishTypeDTO()).ToList();
-                return Ok(dtoTypes);
+                var places = await _placeService.GetAllAsync();
+                var dtoPlaces = places.Select(p => p.ToPlaceDTO()).ToList();
+                return Ok(dtoPlaces);
             }
             catch (Exception ex)
             {
@@ -44,28 +46,27 @@ namespace CatchTrackerApi.Controllers
             }
             try
             {
-                var type = await _fishTypeService.GetByIdAsync(id);
-                return Ok(type.ToFishTypeDTO());
+                var place = await _placeService.GetByIdAsync(id);
+                return Ok(place.ToPlaceDTO());
             }
             catch (KeyNotFoundException ex)
             {
                 return Ok(new { message = ex.Message });
             }
-
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateFishTypeDTO createFishTypeDto)
+        public async Task<IActionResult> Create([FromBody] CreatePlaceDTO createPlaceDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var fishType = createFishTypeDto.ToFishTypeFromCreateDto();
             try
             {
-                var createdType = await _fishTypeService.CreateAsync(fishType);
-                return CreatedAtAction(nameof(GetById), new { id = createdType.Id }, createdType.ToFishTypeDTO());
+                var place = createPlaceDto.ToPlaceFromCreateDTO();
+                var createdPlace = await _placeService.CreateAsync(place);
+                return CreatedAtAction(nameof(GetById), new { id = createdPlace.Id }, createdPlace.ToPlaceDTO());
             }
             catch (InvalidOperationException ex)
             {
@@ -74,42 +75,45 @@ namespace CatchTrackerApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update([FromBody] UpdateFishTypeDTO updatedTypeDto, int id)
+        public async Task<IActionResult> Update([FromBody] UpdatePlaceDTO updatePlaceDto, [FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var fishType = updatedTypeDto.ToFishTypeFromUpdateDto();
-            try 
+            try
             {
-                var updatedType = await _fishTypeService.UpdateAsync(id, fishType);
-                if (updatedType == null)
+                var place = updatePlaceDto.ToPlaceFromUpdateDTO();
+                var updatedPlace = await _placeService.UpdateAsync(place, id);
+                if (updatedPlace == null)
                 {
-                    throw new KeyNotFoundException($"FishType with Id: {id} is not found.");
+                    throw new KeyNotFoundException($"Place with ID {id} not found.");
                 }
-                return Ok(updatedType.ToFishTypeDTO());
+                return Ok(updatedPlace.ToPlaceDTO());
             }
             catch (InvalidOperationException ex)
             {
                 return Conflict(new { message = ex.Message });
             }
-
             catch (KeyNotFoundException ex)
             {
-                return NotFound(new { message = ex.Message });
+                return Ok(new { message = ex.Message });
             }
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             try
             {
-                var deleted = await _fishTypeService.DeleteAsync(id);
-                if (deleted == null)
+                var deletedPlace = await _placeService.DeleteAsync(id);
+                if (deletedPlace == null)
                 {
-                    throw new KeyNotFoundException($"FishType with Id: {id} is not found.");
+                    throw new KeyNotFoundException($"Place with ID {id} not found.");
                 }
                 return NoContent();
             }
