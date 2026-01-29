@@ -12,7 +12,7 @@ namespace CatchTrackerApi.Models
         public string Trophy { get; set; }
         public string Bait { get; set; }
         public double Distance { get; set; }
-        public DateTime Time { get; set; }
+        public DateTime Time { get; set; } = DateTime.Now;
 
         // Навігаційні властивості
         public User User { get; set; }
