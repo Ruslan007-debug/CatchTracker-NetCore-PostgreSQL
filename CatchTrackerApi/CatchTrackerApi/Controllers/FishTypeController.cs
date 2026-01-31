@@ -19,10 +19,6 @@ namespace CatchTrackerApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             try
             {
                 var types = await _fishTypeService.GetAllAsync();
