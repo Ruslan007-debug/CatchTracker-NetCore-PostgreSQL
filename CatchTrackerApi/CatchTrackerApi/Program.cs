@@ -37,6 +37,7 @@ namespace CatchTrackerApi
             builder.Services.AddScoped<IPlaceService, PlaceService>();
             builder.Services.AddScoped<IFishingLogRepository, FishingLogRepository>();
             builder.Services.AddScoped<IFishingLogService, FishingLogService>();
+            builder.Services.AddScoped<IJWTService, JWTService>();
 
             builder.Services.AddControllers();
 
