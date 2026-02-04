@@ -30,17 +30,21 @@ namespace CatchTrackerApi.Data
                 entity.ToTable("users"); // Назва таблиці в БД (малими літерами для PostgreSQL)
                 entity.HasKey(e => e.Id); // Первинний ключ
 
-                entity.Property(e => e.Name)
-                    .IsRequired() // Поле обов'язкове (NOT NULL)
-                    .HasMaxLength(100); // Максимальна довжина
+                entity.HasIndex(u => u.Email)
+                    .IsUnique();
 
-                entity.Property(e => e.Email)
-                    .IsRequired()
-                    .HasMaxLength(150);
+                entity.HasIndex(u => u.Name)
+                    .IsUnique();
 
-                entity.Property(e => e.Password)
+                entity.Property(e => e.PasswordHash)
                     .IsRequired()
                     .HasMaxLength(255);
+
+                entity.Property(e => e.Role)
+                    .HasDefaultValue("User");
+
+                entity.Property(e => e.CreatedAt)
+                    .HasDefaultValueSql("CURRENT_TIMESTAMP"); // для PostgreSQL
 
                 // Налаштування зв'язку: 1 User -> багато FishingLogs
                 entity.HasMany(u => u.FishingLogs)
