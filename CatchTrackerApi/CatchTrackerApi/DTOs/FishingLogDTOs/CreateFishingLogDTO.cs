@@ -5,7 +5,6 @@ namespace CatchTrackerApi.DTOs.FishingLogDTOs
 {
     public class CreateFishingLogDTO
     {
-        public int UserId { get; set; }
         public int PlaceId { get; set; }
         public int FishTypeId { get; set; }
 
