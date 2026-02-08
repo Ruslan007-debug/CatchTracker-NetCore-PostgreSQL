@@ -1,6 +1,7 @@
 ﻿using CatchTrackerApi.Data;
 using CatchTrackerApi.Interfaces.RepoInterfaces;
 using CatchTrackerApi.Models;
+using CatchTrackerApi.Queries;
 using Microsoft.EntityFrameworkCore;
 
 namespace CatchTrackerApi.Repos
@@ -33,9 +34,14 @@ namespace CatchTrackerApi.Repos
             return place;
         }
 
-        public async Task<List<Place>> GetAllAsync()
+        public async Task<List<Place>> GetAllAsync(QueryForPlace query)
         {
-            return await _database.Places.AsNoTracking().OrderBy(f=>f.Id).ToListAsync();
+            var place = _database.Places.AsNoTracking().AsQueryable();
+            if (!string.IsNullOrWhiteSpace(query.Name))
+            {
+                place = place.Where(p => EF.Functions.ILike(p.Name, $"%{query.Name}%"));
+            }
+            return await place.OrderBy(f=>f.Id).ToListAsync();
         }
 
         public async Task<Place?> GetByIdAsync(int id)

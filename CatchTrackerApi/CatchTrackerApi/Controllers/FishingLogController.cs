@@ -35,7 +35,7 @@ namespace CatchTrackerApi.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, User")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             try 
