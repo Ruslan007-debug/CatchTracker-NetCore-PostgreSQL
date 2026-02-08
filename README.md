@@ -3,7 +3,7 @@ FCMS-FishingCatchManagementSystem
 
 # 🎣 CatchTracker
 
-Digital fishing logbook built with ASP.NET Core 8 and PostgreSQL.
+Digital fishing logbook built with ASP.NET Core 9 and PostgreSQL.
 
 # Status: In Development
 
@@ -18,7 +18,7 @@ Coursework project for "Object-Oriented Programming C#" at DUICT.
 
 # Tech Stack
 
-- ASP.NET Core 8 Web API
+- ASP.NET Core 9 Web API
 - PostgreSQL + Entity Framework Core
 - JWT Authentication
 
