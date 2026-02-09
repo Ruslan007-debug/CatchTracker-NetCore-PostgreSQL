@@ -54,7 +54,7 @@ namespace CatchTrackerApi.Controllers
         }
 
         [HttpGet("userLogs")]
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "Admin, User")]
         public async Task<IActionResult> GetByUserId()
         {
             try
@@ -70,7 +70,7 @@ namespace CatchTrackerApi.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "Admin, User")]
         public async Task<IActionResult> Create([FromBody] CreateFishingLogDTO createDto)
         {
             try
@@ -86,7 +86,7 @@ namespace CatchTrackerApi.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "Admin, User")]
         public async Task<IActionResult> Update([FromBody] UpdateFishingLogDTO updatedDTO, [FromRoute] int id)
         {
             var existingLog = await _fishingLogService.GetFishingLogByIdAsync(id);
