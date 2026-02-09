@@ -110,7 +110,7 @@ namespace CatchTrackerApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "Admin, User")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             try
