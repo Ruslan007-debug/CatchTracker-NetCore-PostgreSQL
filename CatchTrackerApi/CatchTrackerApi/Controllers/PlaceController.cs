@@ -11,7 +11,7 @@ namespace CatchTrackerApi.Controllers
     [Route("api/Places")]
 
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class PlaceController : ControllerBase
     {
         private readonly IPlaceService _placeService;
@@ -22,7 +22,7 @@ namespace CatchTrackerApi.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Roles = "Admin, User")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAll([FromQuery]QueryForPlace query)
         {
             try
@@ -38,7 +38,7 @@ namespace CatchTrackerApi.Controllers
         }
 
         [HttpGet("{id}")]
-        //[Authorize(Roles = "Admin")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -57,7 +57,7 @@ namespace CatchTrackerApi.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([FromBody] CreatePlaceDTO createPlaceDto)
         {
             if (!ModelState.IsValid)
@@ -77,7 +77,7 @@ namespace CatchTrackerApi.Controllers
         }
 
         [HttpPut("{id}")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update([FromBody] UpdatePlaceDTO updatePlaceDto, [FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -105,7 +105,7 @@ namespace CatchTrackerApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             if (!ModelState.IsValid)
