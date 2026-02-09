@@ -20,7 +20,7 @@ namespace CatchTrackerApi.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin, User")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAll([FromQuery] QueryForFishType query)
         {
             try
@@ -36,7 +36,7 @@ namespace CatchTrackerApi.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "Admin")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             if (!ModelState.IsValid)
