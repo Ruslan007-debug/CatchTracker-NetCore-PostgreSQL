@@ -2,6 +2,7 @@
 using CatchTrackerApi.Models;
 using Microsoft.EntityFrameworkCore;
 using CatchTrackerApi.Interfaces.RepoInterfaces;
+using CatchTrackerApi.Queries;
 
 namespace CatchTrackerApi.Repos
 {
@@ -33,10 +34,16 @@ namespace CatchTrackerApi.Repos
             return deletingType;
         }
 
-        public async Task<List<FishType>> GetAllAsync()
+        public async Task<List<FishType>> GetAllAsync(QueryForFishType query)
         {
-            return await _database.FishTypes
-                .AsNoTracking()
+            var types = _database.FishTypes.AsNoTracking().AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(query.TypeName))
+            {
+                types = types.Where(p => EF.Functions.ILike(p.TypeName, $"%{query.TypeName}%"));
+            }
+
+            return await types
                 .OrderBy(f=>f.Id)
                 .ToListAsync();
         }

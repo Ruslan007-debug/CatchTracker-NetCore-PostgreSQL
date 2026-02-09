@@ -1,6 +1,8 @@
 ﻿using CatchTrackerApi.DTOs.PlaceDTOs;
 using CatchTrackerApi.Interfaces.ServiceInterfaces;
 using CatchTrackerApi.Mappers;
+using CatchTrackerApi.Queries;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +11,7 @@ namespace CatchTrackerApi.Controllers
     [Route("api/Places")]
 
     [ApiController]
+    [Authorize]
     public class PlaceController : ControllerBase
     {
         private readonly IPlaceService _placeService;
@@ -19,15 +22,12 @@ namespace CatchTrackerApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [AllowAnonymous]
+        public async Task<IActionResult> GetAll([FromQuery]QueryForPlace query)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             try
             {
-                var places = await _placeService.GetAllAsync();
+                var places = await _placeService.GetAllAsync(query);
                 var dtoPlaces = places.Select(p => p.ToPlaceDTO()).ToList();
                 return Ok(dtoPlaces);
             }
@@ -38,6 +38,7 @@ namespace CatchTrackerApi.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -56,6 +57,7 @@ namespace CatchTrackerApi.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([FromBody] CreatePlaceDTO createPlaceDto)
         {
             if (!ModelState.IsValid)
@@ -75,6 +77,7 @@ namespace CatchTrackerApi.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update([FromBody] UpdatePlaceDTO updatePlaceDto, [FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -102,6 +105,7 @@ namespace CatchTrackerApi.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             if (!ModelState.IsValid)

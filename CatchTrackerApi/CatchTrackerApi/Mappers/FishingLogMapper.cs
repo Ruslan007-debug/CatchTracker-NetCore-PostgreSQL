@@ -20,11 +20,11 @@ namespace CatchTrackerApi.Mappers
             };
         }
 
-        public static FishingLog ToFishingLogFromCreateDTO(this CreateFishingLogDTO fishingLogCreateDTO)
+        public static FishingLog ToFishingLogFromCreateDTO(this CreateFishingLogDTO fishingLogCreateDTO, int userId)
         {
             return new FishingLog
             {
-                UserId = fishingLogCreateDTO.UserId,
+                UserId = userId,
                 PlaceId = fishingLogCreateDTO.PlaceId,
                 FishTypeId = fishingLogCreateDTO.FishTypeId,
                 Trophy = fishingLogCreateDTO.Trophy,

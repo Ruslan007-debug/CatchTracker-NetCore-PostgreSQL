@@ -2,11 +2,14 @@
 using CatchTrackerApi.Mappers;
 using Microsoft.AspNetCore.Mvc;
 using CatchTrackerApi.DTOs.FishTypeDTOs;
+using Microsoft.AspNetCore.Authorization;
+using CatchTrackerApi.Queries;
 
 namespace CatchTrackerApi.Controllers
 {
     [Route("api/FishTypes")]
     [ApiController]
+    [Authorize]
     public class FishTypeController: ControllerBase
     {
         private readonly IFishTypeService _fishTypeService;
@@ -17,11 +20,12 @@ namespace CatchTrackerApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [AllowAnonymous]
+        public async Task<IActionResult> GetAll([FromQuery] QueryForFishType query)
         {
             try
             {
-                var types = await _fishTypeService.GetAllAsync();
+                var types = await _fishTypeService.GetAllAsync(query);
                 var dtoTypes = types.Select(t => t.ToFishTypeDTO()).ToList();
                 return Ok(dtoTypes);
             }
@@ -32,6 +36,7 @@ namespace CatchTrackerApi.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -51,6 +56,7 @@ namespace CatchTrackerApi.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([FromBody] CreateFishTypeDTO createFishTypeDto)
         {
             if (!ModelState.IsValid)
@@ -70,6 +76,7 @@ namespace CatchTrackerApi.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update([FromBody] UpdateFishTypeDTO updatedTypeDto, int id)
         {
             if (!ModelState.IsValid)
@@ -98,6 +105,7 @@ namespace CatchTrackerApi.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             try

@@ -1,6 +1,7 @@
 ﻿using CatchTrackerApi.DTOs.FishingLogDTOs;
 using CatchTrackerApi.Interfaces.ServiceInterfaces;
 using CatchTrackerApi.Mappers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,7 +9,8 @@ namespace CatchTrackerApi.Controllers
 {
     [ApiController]
     [Route("api/FishingLogs")]
-    public class FishingLogController : ControllerBase
+    [Authorize]
+    public class FishingLogController : BaseAuthController
     {
         private readonly IFishingLogService _fishingLogService;
         public FishingLogController(IFishingLogService fishingLogService)
@@ -17,6 +19,7 @@ namespace CatchTrackerApi.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> GetAll()
         {
             try
@@ -32,6 +35,7 @@ namespace CatchTrackerApi.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin, User")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             try 
@@ -49,12 +53,13 @@ namespace CatchTrackerApi.Controllers
             }
         }
 
-        [HttpGet("user/{userId}")]
-        public async Task<IActionResult> GetByUserId([FromRoute] int userId)
+        [HttpGet("userLogs")]
+        [Authorize(Roles = "User")]
+        public async Task<IActionResult> GetByUserId()
         {
             try
             {
-                var fishingLogs = await _fishingLogService.GetFishingLogsByUserIdAsync(userId);
+                var fishingLogs = await _fishingLogService.GetFishingLogsByUserIdAsync(CurrentUserId);
                 var fishingLogsDto = fishingLogs.Select(f => f.ToFishingLogDTO()).ToList();
                 return Ok(fishingLogsDto);
             }
@@ -65,11 +70,12 @@ namespace CatchTrackerApi.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> Create([FromBody] CreateFishingLogDTO createDto)
         {
             try
             {
-                var FishingLog = createDto.ToFishingLogFromCreateDTO();
+                var FishingLog = createDto.ToFishingLogFromCreateDTO(CurrentUserId);
                 var createdFishingLog = await _fishingLogService.CreateFishingLogAsync(FishingLog);
                 return CreatedAtAction(nameof(GetById), new { id = createdFishingLog.Id }, createdFishingLog.ToFishingLogDTO());
             }
@@ -80,9 +86,14 @@ namespace CatchTrackerApi.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> Update([FromBody] UpdateFishingLogDTO updatedDTO, [FromRoute] int id)
         {
+            var existingLog = await _fishingLogService.GetFishingLogByIdAsync(id);
+            ValidateOwnership(existingLog.UserId);
+
             var updatedFishingLog = updatedDTO.ToFishingLogFromUpdateDTO();
+            
             try
             {
                 var fishingLog = await _fishingLogService.UpdateFishingLogAsync(updatedFishingLog, id);
@@ -99,11 +110,14 @@ namespace CatchTrackerApi.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             try
             {
-                var deleted = await _fishingLogService.DeleteFishingLogAsync(id);
+                var existingLog = await _fishingLogService.GetFishingLogByIdAsync(id);
+                ValidateOwnership(existingLog.UserId);
+                await _fishingLogService.DeleteFishingLogAsync(id);
                 return NoContent();
             }
             catch (KeyNotFoundException ex)

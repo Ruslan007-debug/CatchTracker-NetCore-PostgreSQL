@@ -1,6 +1,7 @@
 ﻿using CatchTrackerApi.Interfaces.ServiceInterfaces;
 using CatchTrackerApi.Interfaces.RepoInterfaces;
 using CatchTrackerApi.Models;
+using CatchTrackerApi.Queries;
 
 namespace CatchTrackerApi.Services
 {
@@ -28,9 +29,9 @@ namespace CatchTrackerApi.Services
             return deleted;
         }
 
-        public async Task<List<Place>> GetAllAsync()
+        public async Task<List<Place>> GetAllAsync(QueryForPlace query)
         {
-            return await _placeRepo.GetAllAsync();
+            return await _placeRepo.GetAllAsync(query);
         }
 
         public Task<Place?> GetByIdAsync(int id)
