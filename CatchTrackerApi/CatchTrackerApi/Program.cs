@@ -16,10 +16,10 @@ namespace CatchTrackerApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // 1. Завантажуємо змінні з .env
+            // 1. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ .env
             DotNetEnv.Env.Load();
 
-            // 2. ВРУЧНУ формуємо рядок підключення, витягуючи дані з Environment
+            // 2. пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ Environment
             var connectionString = $"Host={Environment.GetEnvironmentVariable("DB_HOST")};" +
                                    $"Port={Environment.GetEnvironmentVariable("DB_PORT")};" +
                                    $"Database={Environment.GetEnvironmentVariable("DB_NAME")};" +
@@ -27,11 +27,11 @@ namespace CatchTrackerApi
                                    $"Password={Environment.GetEnvironmentVariable("DB_PASS")}";
 
 
-            // 3. Реєструємо базу даних
+            // 3. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
             builder.Services.AddDbContext<FishingDbContext>(options =>
                 options.UseNpgsql(connectionString));
 
-            // 4. Налаштовуємо JWT автентифікацію
+            // 4. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ JWT пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             builder.Services
         .AddAuthentication(options =>
         {
@@ -46,7 +46,7 @@ namespace CatchTrackerApi
                 ValidateAudience = true,
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
-                ClockSkew = TimeSpan.Zero, // Без затримки на термін дії
+                ClockSkew = TimeSpan.Zero, // пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ дії
 
                 ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
                 ValidAudience = builder.Configuration["JwtSettings:Audience"],
@@ -55,7 +55,7 @@ namespace CatchTrackerApi
                 )
             };
 
-            // Додаткова логіка (опціонально)
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
             options.Events = new JwtBearerEvents
             {
                 OnAuthenticationFailed = context =>
@@ -71,7 +71,7 @@ namespace CatchTrackerApi
             };
         });
 
-            // 5. Реєструємо репозиторії та сервіси
+            // 5. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
             builder.Services.AddScoped<IFishTypeRepository, FishTypeRepository>();
             builder.Services.AddScoped<IFishTypeService, FishTypeServise>();
             builder.Services.AddScoped<IPlaceRepository, PlaceRepository>();
@@ -85,12 +85,12 @@ namespace CatchTrackerApi
             builder.Services.AddControllers();
             builder.Services.AddAuthorization();
 
-            // 6. CORS (для frontend)
+            // 6. CORS (пїЅпїЅпїЅ frontend)
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowAll", policy =>
                 {
-                    policy.AllowAnyOrigin()
+                    policy.WithOrigins("http://localhost:5173")
                           .AllowAnyMethod()
                           .AllowAnyHeader();
                 });
