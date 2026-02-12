@@ -1,20 +1,33 @@
 import { useState } from "react";
 import axios from 'axios';
+import { register, getMe } from "../api/auth.api"; 
+import { useAuth } from "../context/AuthContext";
 import {useNavigate} from 'react-router-dom';
+import { toast } from 'react-toastify';
+import api from "../api/axios";
+import { Link } from "react-router-dom";
 
 const Register = () =>
 {
     const navigate = useNavigate();
+    const { setUser } = useAuth();
     const [formData, setFormData] = useState({name: '', email: '', password: '', confirmPassword: ''});
 
     const handleSubmit = async (e)=>
     {
         e.preventDefault();
+
+        if (formData.password !== formData.confirmPassword) {
+            return toast.error("Паролі не співпадають!");
+        }
+
         try
         {
-            const response = await axios.post("https://localhost:7071/api/auth/register", formData);
-            localStorage.setItem('token', response.data.accessToken)
-            alert('Реєстрація успішна!');
+            const data = await api.register(formData);
+            localStorage.setItem('accessToken', data.accessToken);
+            localStorage.setItem('refreshToken', data.refreshToken);
+            const userDoc = await(getMe)
+            toast.success('Успішна реєстрація!');
             navigate('/login');
         }
         catch(err)
@@ -38,6 +51,9 @@ const Register = () =>
                 onChange={(e)=> setFormData({... formData, confirmPassword: e.target.value})}/>
                 <button type="submit" style={{ cursor: 'pointer' }}>Створити акаунт</button>
             </form>
+            <p style={{ marginTop: '15px' }}>
+                Вже є акаунт? <Link to="/login">Увійти</Link>
+            </p>
 
         </div>
     );
