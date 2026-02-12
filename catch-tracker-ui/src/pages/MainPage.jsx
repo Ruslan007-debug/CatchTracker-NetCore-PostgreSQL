@@ -30,7 +30,7 @@ const MainPage = () =>
                 </div>
             </header>
             
-            <main style={{ marginTop: "40px" }}>
+            <main style={{ marginTop: "25px" }}>
                 <h2>Тут буде твій основний контент</h2>
             </main>
         </div>

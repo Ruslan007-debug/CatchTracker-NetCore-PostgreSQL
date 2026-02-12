@@ -20,6 +20,7 @@ const ProtectedRoute = ({ children }) => {
 };
 
 function App() {
+  
     return (
         <AuthProvider> {/* 1. Контекст обгортає все */}
             <Router>
