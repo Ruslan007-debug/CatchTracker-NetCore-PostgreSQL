@@ -23,12 +23,13 @@ const Register = () =>
 
         try
         {
-            const data = await api.register(formData);
+            const data = await register(formData);
             localStorage.setItem('accessToken', data.accessToken);
             localStorage.setItem('refreshToken', data.refreshToken);
-            const userDoc = await(getMe)
+            const userDoc = await getMe();
+            setUser(userDoc);
             toast.success('Успішна реєстрація!');
-            navigate('/login');
+            navigate('/MainPage');
         }
         catch(err)
         {
