@@ -31,7 +31,7 @@ const MainPage = () =>
             </header>
             
             <main style={{ marginTop: "25px" }}>
-                <h2>Тут буде твій основний контент</h2>
+                <button onClick={() =>navigate("/fishTypes")}>Типи риб</button>
             </main>
         </div>
         );

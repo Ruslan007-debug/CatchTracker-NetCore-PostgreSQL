@@ -3,7 +3,6 @@ import { register, getMe } from "../api/auth.api";
 import { useAuth } from "../context/AuthContext";
 import {useNavigate} from 'react-router-dom';
 import { toast } from 'react-toastify';
-import api from "../api/axios";
 import { Link } from "react-router-dom";
 import "../CSS/Register.css";
 import backgroundImage from "../assets/fishing-bg.jpg";
