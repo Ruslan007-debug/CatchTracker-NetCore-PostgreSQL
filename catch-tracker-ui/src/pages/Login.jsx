@@ -4,6 +4,8 @@ import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import "../CSS/Login.css";
+import backgroundImage from "../assets/fishing-bg.jpg";
 
 const Login = () => 
     {
@@ -29,21 +31,31 @@ const Login = () =>
             }
         };
 
-        return(
-            <div style={{ padding: '20px', maxWidth: '400px' }}>
+        return (
+        <div className="login-container" style={{ backgroundImage: `url(${backgroundImage})` }}>
+            <div className="login-card">
                 <h1>Вхід</h1>
-                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                    <input type="email" placeholder="Пошта" required
-                    onChange={(e) => setFormData({...formData, email: e.target.value})}/>
-                    <input type="password" placeholder="Пароль" required
-                    onChange={(e)=>setFormData({...formData, password:e.target.value})}/>
-                    <button type="submit" style={{ cursor: 'pointer' }}>Увійти</button>
+                <form onSubmit={handleSubmit} className="login-form">
+                    <input 
+                        type="email" 
+                        placeholder="Пошта" 
+                        required
+                        onChange={(e) => setFormData({...formData, email: e.target.value})}
+                    />
+                    <input 
+                        type="password" 
+                        placeholder="Пароль" 
+                        required
+                        onChange={(e) => setFormData({...formData, password: e.target.value})}
+                    />
+                    <button type="submit" className="login-button">Увійти</button>
                 </form>
-                <p style={{ marginTop: '15px' }}>
-                Немає акаунту? <Link to="/register">Зареєструватися</Link>
-            </p>
+                <p className="register-link">
+                    Немає акаунту? <Link to="/register">Зареєструватися</Link>
+                </p>
             </div>
-        );
+        </div>
+    );
         
     };
 

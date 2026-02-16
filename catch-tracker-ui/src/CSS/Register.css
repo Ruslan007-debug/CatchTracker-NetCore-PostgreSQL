@@ -1,0 +1,76 @@
+/* Контейнер для центрування */
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    background-color: #ffffff;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('../assets/fishing-bg.jpg');
+    background-size: cover;      /* Розтягує на весь екран */
+    background-position: center; /* Центрує картинку */
+    background-repeat: no-repeat;
+    
+    
+}
+
+/* Картка реєстрації */
+.register-card {
+    background: #cfc3c3;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    background: #cfc3c3; opacity: 0.7;
+}
+
+.register-card h1 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Форма */
+.register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Поля вводу */
+.register-form input {
+    padding: 12px;
+    border: 1px solid #cfc3c3;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.register-form input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Кнопка */
+.register-button {
+    padding: 12px;
+    background-color: #007bff; /* Зелений колір для реєстрації */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.register-button:hover {
+    background-color: #007bff;
+}
+
+.login-link {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
+}
