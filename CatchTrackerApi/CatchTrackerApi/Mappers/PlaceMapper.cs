@@ -1,5 +1,6 @@
 ﻿using CatchTrackerApi.DTOs.PlaceDTOs;
 using CatchTrackerApi.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace CatchTrackerApi.Mappers
 {
@@ -12,7 +13,9 @@ namespace CatchTrackerApi.Mappers
                 Id = place.Id,
                 Name = place.Name,
                 BiggestTrophy = place.BiggestTrophy,
-                WaterTemp = place.WaterTemp
+                WaterTemp = place.WaterTemp,
+                ImgUrl = place.ImgUrl,
+                Description = place.Description
             };
         }
 
@@ -22,7 +25,9 @@ namespace CatchTrackerApi.Mappers
             {
                 Name = create.Name,
                 BiggestTrophy = create.BiggestTrophy,
-                WaterTemp = create.WaterTemp
+                WaterTemp = create.WaterTemp,
+                ImgUrl = create.ImgUrl,
+                Description = create.Description
             };
 
         }
@@ -33,7 +38,9 @@ namespace CatchTrackerApi.Mappers
             {
                 Name = update.Name,
                 BiggestTrophy = update.BiggestTrophy,
-                WaterTemp = update.WaterTemp
+                WaterTemp = update.WaterTemp,
+                ImgUrl = update.ImgUrl,
+                Description = update.Description
             };
         }
     }
