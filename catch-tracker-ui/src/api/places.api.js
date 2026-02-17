@@ -2,7 +2,7 @@ import api from "./axios";
 
 export const getAll = async (searchQuery = '') => {
   const response = await api.get('/Places', {
-    params: searchQuery ? { typeName: searchQuery } : {},
+    params: searchQuery ? { name: searchQuery } : {},
   });
   return response.data;
 };

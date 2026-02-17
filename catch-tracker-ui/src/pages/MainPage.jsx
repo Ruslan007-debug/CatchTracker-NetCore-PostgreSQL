@@ -32,6 +32,7 @@ const MainPage = () =>
             
             <main style={{ marginTop: "25px" }}>
                 <button onClick={() =>navigate("/fishTypes")}>Типи риб</button>
+                <button onClick={() =>navigate("/places")}>Місця риболовлі</button>
             </main>
         </div>
         );

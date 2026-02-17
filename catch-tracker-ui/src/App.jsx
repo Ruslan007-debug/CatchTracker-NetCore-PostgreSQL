@@ -4,7 +4,8 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import MainPage from './pages/MainPage';
 import { ToastContainer } from 'react-toastify';
-import FishTypesPage from './pages/FishTypes';
+import FishTypes from './pages/FishTypes';
+import Places from './pages/Places';
 
 // Захист: Тільки для тих, хто НЕ залогінився (Login, Register)
 const PublicRoute = ({ children }) => {
@@ -39,7 +40,10 @@ function App() {
                         <ProtectedRoute> <MainPage /> </ProtectedRoute>
                     } />
                     <Route path="/fishTypes" element={
-                        <ProtectedRoute> <FishTypesPage /> </ProtectedRoute>
+                        <ProtectedRoute> <FishTypes /> </ProtectedRoute>
+                    } />
+                    <Route path="/places" element={
+                        <ProtectedRoute> <Places /> </ProtectedRoute>
                     } />
 
                     {/* Автоматичний редірект: якщо зайшов на "/", кидаємо на головну */}
