@@ -12,5 +12,7 @@ namespace CatchTrackerApi.DTOs.FishTypeDTOs
         public double AvgWeight { get; set; }
         [MaxLength(1000)]
         public string Description { get; set; } = string.Empty;
+        [MaxLength(500)]
+        public string? ImageUrl { get; set; }
     }
 }

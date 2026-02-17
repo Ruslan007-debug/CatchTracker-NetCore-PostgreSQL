@@ -14,6 +14,8 @@ namespace CatchTrackerApi.Models
         public double AvgWeight { get; set; }
         [MaxLength(1000)]
         public string Description { get; set; }
+        [MaxLength(500)]
+        public string? ImageUrl { get; set; }
 
         // Навігаційна властивість: 1 FishType -> M FishingLogs
         public ICollection<FishingLog> FishingLogs { get; set; }

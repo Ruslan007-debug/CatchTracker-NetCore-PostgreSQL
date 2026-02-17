@@ -104,7 +104,7 @@ const FishTypes = ()=>
                         fishTypes.map((type) => (
                             <div key={type.id} className="fish-type-card">
                                 {/* Іконка зліва */}
-                                <div className="fish-icon">🐟</div>
+                                <div className="fish-icon" style={{ backgroundImage: `url(${type.imageUrl})` }}></div>
 
                                 {/* Інформація через дефіс */}
                                 <div className="fish-info">
