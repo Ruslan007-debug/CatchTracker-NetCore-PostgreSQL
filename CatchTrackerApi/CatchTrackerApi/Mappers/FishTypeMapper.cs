@@ -14,7 +14,8 @@ namespace CatchTrackerApi.Mappers
                 TypeName = fishType.TypeName,
                 FavBait = fishType.FavBait,
                 AvgWeight = fishType.AvgWeight,
-                Description = fishType.Description
+                Description = fishType.Description,
+                ImageUrl = fishType.ImageUrl
             };
         }
 
@@ -25,7 +26,8 @@ namespace CatchTrackerApi.Mappers
                 TypeName = createFishType.TypeName,
                 FavBait = createFishType.FavBait,
                 AvgWeight = createFishType.AvgWeight,
-                Description = createFishType.Description
+                Description = createFishType.Description,
+                ImageUrl = createFishType.ImageUrl
             };
         }
 
@@ -36,7 +38,8 @@ namespace CatchTrackerApi.Mappers
                 TypeName = updateFishType.TypeName,
                 FavBait = updateFishType.FavBait,
                 AvgWeight = updateFishType.AvgWeight,
-                Description = updateFishType.Description
+                Description = updateFishType.Description,
+                ImageUrl = updateFishType.ImageUrl
             };
         }
     }
