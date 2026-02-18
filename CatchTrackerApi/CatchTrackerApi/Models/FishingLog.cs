@@ -10,6 +10,7 @@ namespace CatchTrackerApi.Models
         public int FishTypeId { get; set; }       // FK -> FishType
 
         public string Trophy { get; set; }
+        public double Weight { get; set; }
         public string Bait { get; set; }
         public double Distance { get; set; }
         public DateTime Time { get; set; } = DateTime.UtcNow;

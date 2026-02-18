@@ -14,6 +14,7 @@ namespace CatchTrackerApi.Mappers
                 Place = fishingLog.Place?.ToPlaceDTO(),
                 FishType = fishingLog.FishType?.ToFishTypeDTO(),
                 Trophy = fishingLog.Trophy,
+                Weight = fishingLog.Weight,
                 Bait = fishingLog.Bait,
                 Distance = fishingLog.Distance,
                 Time = fishingLog.Time
@@ -28,6 +29,7 @@ namespace CatchTrackerApi.Mappers
                 PlaceId = fishingLogCreateDTO.PlaceId,
                 FishTypeId = fishingLogCreateDTO.FishTypeId,
                 Trophy = fishingLogCreateDTO.Trophy,
+                Weight = fishingLogCreateDTO.Weight,
                 Bait = fishingLogCreateDTO.Bait,
                 Distance = fishingLogCreateDTO.Distance
             };
@@ -40,6 +42,7 @@ namespace CatchTrackerApi.Mappers
                 PlaceId = updatingModel.PlaceId,
                 FishTypeId = updatingModel.FishTypeId,
                 Trophy = updatingModel.Trophy,
+                Weight = updatingModel.Weight,
                 Bait = updatingModel.Bait,
                 Distance = updatingModel.Distance
             };

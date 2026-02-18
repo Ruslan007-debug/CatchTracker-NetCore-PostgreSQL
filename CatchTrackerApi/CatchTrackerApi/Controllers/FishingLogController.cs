@@ -126,5 +126,23 @@ namespace CatchTrackerApi.Controllers
             }
         }
 
+        [HttpGet("leaderboard")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetLeaderboard([FromQuery] int limit = 50)
+        {
+            var logs = await _fishingLogService.GetLeaderboardAsync(limit);
+
+            var leaderboard = logs.Select(l => new
+            {
+                userName = l.User.Name,
+                fishTypeName = l.FishType.TypeName,
+                weight = l.Weight,
+                placeName = l.Place.Name,
+                caughtAt = l.Time
+            });
+
+            return Ok(leaderboard);
+        }
+
     }
 }
