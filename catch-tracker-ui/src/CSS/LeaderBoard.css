@@ -1,0 +1,240 @@
+.leaderboard-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    padding: 20px;
+}
+
+/* Шапка */
+.page-header {
+    max-width: 1200px;
+    margin: 0 auto 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.page-header h1 {
+    margin: 0;
+    font-size: 32px;
+    color: #333;
+}
+
+.back-btn {
+    padding: 12px 24px;
+    background: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.back-btn:hover {
+    background: #1976D2;
+    transform: translateY(-2px);
+}
+
+/* Завантаження */
+.loading {
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.loading p {
+    font-size: 24px;
+    color: #666;
+}
+
+/* Контейнер таблиці */
+.leaderboard-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+}
+
+/* Таблиця */
+.leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.leaderboard-table thead {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.leaderboard-table th {
+    padding: 18px 15px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 16px;
+    white-space: nowrap;
+}
+
+.leaderboard-table tbody tr {
+    border-bottom: 1px solid #f0f0f0;
+    transition: all 0.3s;
+}
+
+.leaderboard-table tbody tr:hover {
+    background: #f9f9f9;
+    transform: scale(1.01);
+}
+
+.leaderboard-table td {
+    padding: 18px 15px;
+    font-size: 15px;
+}
+
+/* Топ 3 медалі */
+.leaderboard-table .gold {
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    font-weight: bold;
+    color: #333;
+}
+
+.leaderboard-table .silver {
+    background: linear-gradient(135deg, #C0C0C0 0%, #A8A8A8 100%);
+    font-weight: bold;
+    color: #333;
+}
+
+.leaderboard-table .bronze {
+    background: linear-gradient(135deg, #CD7F32 0%, #B8860B 100%);
+    font-weight: bold;
+    color: #333;
+}
+
+/* Ранг */
+.rank {
+    text-align: center;
+    font-size: 28px;
+    width: 80px;
+}
+
+.medal {
+    font-size: 32px;
+}
+
+.rank-number {
+    font-size: 20px;
+    font-weight: 600;
+    color: #666;
+}
+
+/* Користувач */
+.username {
+    font-weight: 600;
+    color: #333;
+    font-size: 16px;
+}
+
+/* Вага */
+.weight {
+    font-weight: 700;
+    color: #316933;
+    font-size: 17px;
+}
+
+/* Дата */
+.date {
+    color: #3b3b3b;
+    font-size: 14px;
+}
+
+/* Немає даних */
+.no-data {
+    text-align: center;
+    padding: 60px 20px;
+    font-size: 20px;
+    color: #999;
+}
+
+/* Статистика */
+.stats {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 2px solid #f0f0f0;
+    color: #666;
+    font-size: 16px;
+}
+
+.stats strong {
+    color: #333;
+    font-size: 18px;
+}
+
+.header-controls {
+    display: flex;
+    flex-direction: column; /* Ставить фільтр під кнопку на мобільних */
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.fish-select {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: white;
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+}
+
+.fish-select:focus {
+    border-color: #4CAF50;
+}
+
+.filter-container label {
+    font-weight: bold;
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+@media (min-width: 600px) {
+    .header-controls {
+        flex-direction: row; /* На великих екранах в один рядок */
+        align-items: center;
+    }
+}
+
+/* Адаптивність */
+@media (max-width: 768px) {
+    .page-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .page-header h1 {
+        font-size: 24px;
+    }
+
+    .leaderboard-table {
+        font-size: 13px;
+    }
+
+    .leaderboard-table th,
+    .leaderboard-table td {
+        padding: 12px 8px;
+    }
+
+    .rank {
+        width: 60px;
+        font-size: 20px;
+    }
+
+    .medal {
+        font-size: 24px;
+    }
+}
