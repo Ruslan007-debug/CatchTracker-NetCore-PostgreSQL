@@ -48,6 +48,14 @@ namespace CatchTrackerApi.Services
             return await _repo.GetFishingLogsByUserIdAsync(userId);
         }
 
+        public async Task<List<FishingLog>> GetLeaderboardAsync(int limit)
+        {
+            if (limit <= 0) limit = 50;
+            if (limit > 100) limit = 100;
+
+            return await _repo.GetLeaderboardAsync(limit);
+        }
+
         public async Task<FishingLog?> UpdateFishingLogAsync(FishingLog fishingLog, int id)
         {
             var updated = await _repo.UpdateFishingLogAsync(fishingLog, id);

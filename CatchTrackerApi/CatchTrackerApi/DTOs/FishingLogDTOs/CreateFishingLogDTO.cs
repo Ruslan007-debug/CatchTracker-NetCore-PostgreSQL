@@ -9,6 +9,7 @@ namespace CatchTrackerApi.DTOs.FishingLogDTOs
         public int FishTypeId { get; set; }
 
         public string Trophy { get; set; }
+        public double Weight { get; set; }
         public string Bait { get; set; }
         public double Distance { get; set; }
     }

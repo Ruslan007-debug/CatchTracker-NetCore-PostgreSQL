@@ -11,6 +11,7 @@ namespace CatchTrackerApi.DTOs.FishingLogDTOs
         public FishTypeDTO FishType { get; set; }       
 
         public string Trophy { get; set; }
+        public double Weight { get; set; }
         public string Bait { get; set; }
         public double Distance { get; set; }
         public DateTime Time { get; set; } = DateTime.Now;

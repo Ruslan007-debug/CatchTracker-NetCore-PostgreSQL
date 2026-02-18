@@ -58,6 +58,17 @@ namespace CatchTrackerApi.Repos
                 .ToListAsync();
         }
 
+        public async Task<List<FishingLog>> GetLeaderboardAsync(int limit)
+        {
+            return await _database.FishingLogs
+               .Include(l => l.User)
+               .Include(l => l.FishType)
+               .Include(l => l.Place)
+               .OrderByDescending(l => l.Weight)
+               .Take(limit)
+               .ToListAsync();
+        }
+
         public async Task<FishingLog?> UpdateFishingLogAsync(FishingLog fishingLog, int id)
         {
             var updating = await _database.FishingLogs.FindAsync(id);
