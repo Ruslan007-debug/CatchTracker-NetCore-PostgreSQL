@@ -12,27 +12,30 @@ api.interceptors.request.use((config) => {
 });
 
 api.interceptors.response.use(
-    (response) => response, 
-    async(error)=>{
+    (response) => response,
+    async (error) => {
         const originalRequest = error.config;
-        if(error.response?.status === 401 && !originalRequest._retry){
+        if (error.response?.status === 401 && !originalRequest._retry) {
             originalRequest._retry = true;
-            try
-            {
+            try {
                 const refreshToken = localStorage.getItem('refreshToken');
                 const res = await axios.post("https://localhost:7071/api/auth/refresh", { refreshToken });
 
-                localStorage.setItem("accessToken", res.data.accessToken);
-                api.defaults.headers.common["Authorization"] = `Bearer ${res.data.accessToken}`;
-            }
-            catch(err)
-            {
+                const newToken = res.data.accessToken;
+                localStorage.setItem("accessToken", newToken);
+                localStorage.setItem("refreshToken", res.data.refreshToken); // ← оновлюй і refresh теж!
+                
+                api.defaults.headers.common["Authorization"] = `Bearer ${newToken}`;
+                originalRequest.headers["Authorization"] = `Bearer ${newToken}`;
+                
+                return api(originalRequest); // ← повторюємо оригінальний запит
+            } catch (err) {
                 localStorage.clear();
                 window.location.href = "/login";
             }
         }
         return Promise.reject(error);
-    } 
+    }
 );
 
 export default api;

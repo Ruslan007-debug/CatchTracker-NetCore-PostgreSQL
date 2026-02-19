@@ -15,7 +15,8 @@ namespace CatchTrackerApi.Mappers
                 BiggestTrophy = place.BiggestTrophy,
                 WaterTemp = place.WaterTemp,
                 ImgUrl = place.ImgUrl,
-                Description = place.Description
+                Description = place.Description,
+                PondId = place.PondId
             };
         }
 
@@ -27,7 +28,8 @@ namespace CatchTrackerApi.Mappers
                 BiggestTrophy = create.BiggestTrophy,
                 WaterTemp = create.WaterTemp,
                 ImgUrl = create.ImgUrl,
-                Description = create.Description
+                Description = create.Description,
+                PondId = create.PondId
             };
 
         }
@@ -40,7 +42,8 @@ namespace CatchTrackerApi.Mappers
                 BiggestTrophy = update.BiggestTrophy,
                 WaterTemp = update.WaterTemp,
                 ImgUrl = update.ImgUrl,
-                Description = update.Description
+                Description = update.Description,
+                PondId = update.PondId
             };
         }
     }

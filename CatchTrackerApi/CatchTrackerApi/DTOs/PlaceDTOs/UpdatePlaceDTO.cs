@@ -18,5 +18,7 @@ namespace CatchTrackerApi.DTOs.PlaceDTOs
         [MaxLength(2000)]
         [Required]
         public string Description { get; set; } = string.Empty;
+        [Required]
+        public int PondId { get; set; }
     }
 }
