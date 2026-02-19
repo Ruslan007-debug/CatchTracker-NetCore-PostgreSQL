@@ -9,7 +9,7 @@ namespace CatchTrackerApi.Interfaces.RepoInterfaces
         Task<List<FishingLog>> GetFishingLogsByUserIdAsync(int userId);
         Task<FishingLog> CreateFishingLogAsync(FishingLog fishingLog);
         Task<FishingLog?> UpdateFishingLogAsync(FishingLog fishingLog, int id);
-        Task<FishingLog> DeleteFishingLogAsync(int id);
+        Task<FishingLog?> DeleteFishingLogAsync(int id);
         Task<List<FishingLog>> GetLeaderboardAsync(int limit);
     }
 }

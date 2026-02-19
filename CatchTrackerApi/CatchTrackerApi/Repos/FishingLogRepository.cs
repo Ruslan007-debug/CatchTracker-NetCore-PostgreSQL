@@ -21,7 +21,7 @@ namespace CatchTrackerApi.Repos
             return fishingLog;
         }
 
-        public async Task<FishingLog> DeleteFishingLogAsync(int id)
+        public async Task<FishingLog?> DeleteFishingLogAsync(int id)
         {
             var deleting =  await _database.FishingLogs.FindAsync(id);
             if (deleting == null)

@@ -46,11 +46,12 @@ namespace CatchTrackerApi.Controllers
             try
             {
                 var type = await _fishTypeService.GetByIdAsync(id);
+                if (type == null) return NotFound(new { message = $"FishType with ID {id} not found." });
                 return Ok(type.ToFishTypeDTO());
             }
             catch (KeyNotFoundException ex)
             {
-                return Ok(new { message = ex.Message });
+                return NotFound(new { message = ex.Message });
             }
 
         }

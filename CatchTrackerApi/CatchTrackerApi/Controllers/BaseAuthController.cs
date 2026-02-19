@@ -12,7 +12,7 @@ namespace CatchTrackerApi.Controllers
         {
             if (resourceUserId!=CurrentUserId && !User.IsInRole("Admin"))
             {
-                Forbid("Access denied");
+                throw new UnauthorizedAccessException("Access denied.");
             }
         }
     }

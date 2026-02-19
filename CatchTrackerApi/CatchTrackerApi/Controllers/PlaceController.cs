@@ -48,6 +48,7 @@ namespace CatchTrackerApi.Controllers
             try
             {
                 var place = await _placeService.GetByIdAsync(id);
+                if (place == null) return NotFound(new { message = $"Place with ID {id} not found." });
                 return Ok(place.ToPlaceDTO());
             }
             catch (KeyNotFoundException ex)
@@ -100,7 +101,7 @@ namespace CatchTrackerApi.Controllers
             }
             catch (KeyNotFoundException ex)
             {
-                return Ok(new { message = ex.Message });
+                return NotFound(new { message = ex.Message });
             }
         }
 
