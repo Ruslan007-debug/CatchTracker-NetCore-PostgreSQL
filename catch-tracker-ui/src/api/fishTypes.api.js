@@ -17,8 +17,8 @@ export const create = async (fishTypeData) => {
     return response.data;
 };
 
-export const update = async (updateData) => {
-    const response = await api.put('/FishTypes', updateData); // або patch
+export const update = async (id, updateData) => {
+    const response = await api.put(`/FishTypes/${id}`, updateData);
     return response.data;
 };
 

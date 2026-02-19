@@ -17,8 +17,8 @@ export const create = async (placeData) => {
     return response.data;
 };
 
-export const update = async (updateData) => {
-    const response = await api.put('/Places', updateData); // або patch
+export const update = async (id, updateData) => {
+    const response = await api.put(`/Places/${id}`, updateData);
     return response.data;
 };
 

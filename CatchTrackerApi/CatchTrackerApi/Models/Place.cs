@@ -7,15 +7,19 @@ namespace CatchTrackerApi.Models
     {
         public int Id { get; set; }               // PK
         [MaxLength(200)]
-        public string Name { get; set; }
+        [Required] public string Name { get; set; } = string.Empty;
         [MaxLength(200)]
-        public string BiggestTrophy { get; set; }
+        [Required] public string BiggestTrophy { get; set; } = string.Empty;
         [MaxLength(10)]
         public double WaterTemp { get; set; }
         [MaxLength(200)]
-        public string ImgUrl { get; set; }
+        [Required] public string ImgUrl { get; set; } = string.Empty;
         [MaxLength(2000)]
-        public string Description { get; set; }
+        [Required]
+        public string Description { get; set; } = string.Empty;
+        [Required]
+        public int PondId { get; set; }
+
 
         // Навігаційна властивість: 1 Place -> M FishingLogs
         public ICollection<FishingLog> FishingLogs { get; set; }

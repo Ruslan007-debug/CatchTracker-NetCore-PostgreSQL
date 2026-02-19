@@ -23,7 +23,7 @@ const LeaderBoard =()=>
                 }
                 catch(error)
                 {
-                    console.error('Помилка:', err);
+                    console.error('Помилка:', error);
                 }
                 finally
                 {

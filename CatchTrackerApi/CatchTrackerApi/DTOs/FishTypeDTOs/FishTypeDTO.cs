@@ -15,5 +15,6 @@ namespace CatchTrackerApi.DTOs.FishTypeDTOs
         public string Description { get; set; } = string.Empty;
         [MaxLength(500)]
         public string? ImageUrl { get; set; }
+        public bool IsPredatory { get; set; }
     }
 }
