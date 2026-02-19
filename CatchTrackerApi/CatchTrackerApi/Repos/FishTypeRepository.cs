@@ -53,7 +53,7 @@ namespace CatchTrackerApi.Repos
             return await _database.FishTypes.FindAsync(id);
         }
 
-        public async Task<FishType> UpdateAsync(int id, FishType fishTypeModel)
+        public async Task<FishType?> UpdateAsync(int id, FishType fishTypeModel)
         {
             var existing = await _database.FishTypes.FindAsync(id);
             if (existing == null)

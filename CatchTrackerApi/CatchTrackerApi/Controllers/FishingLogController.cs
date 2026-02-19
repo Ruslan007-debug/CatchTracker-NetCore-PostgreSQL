@@ -35,7 +35,7 @@ namespace CatchTrackerApi.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "Admin, User")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             try 
@@ -54,7 +54,7 @@ namespace CatchTrackerApi.Controllers
         }
 
         [HttpGet("userLogs")]
-        [Authorize(Roles = "Admin, User")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> GetByUserId()
         {
             try
@@ -70,7 +70,7 @@ namespace CatchTrackerApi.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin, User")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> Create([FromBody] CreateFishingLogDTO createDto)
         {
             try
@@ -86,10 +86,11 @@ namespace CatchTrackerApi.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin, User")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> Update([FromBody] UpdateFishingLogDTO updatedDTO, [FromRoute] int id)
         {
             var existingLog = await _fishingLogService.GetFishingLogByIdAsync(id);
+            if (existingLog == null) return NotFound();
             ValidateOwnership(existingLog.UserId);
 
             var updatedFishingLog = updatedDTO.ToFishingLogFromUpdateDTO();
@@ -97,6 +98,7 @@ namespace CatchTrackerApi.Controllers
             try
             {
                 var fishingLog = await _fishingLogService.UpdateFishingLogAsync(updatedFishingLog, id);
+                if (fishingLog == null) return NotFound();
                 return Ok(fishingLog.ToFishingLogDTO());
             }
             catch (KeyNotFoundException ex)
@@ -110,12 +112,13 @@ namespace CatchTrackerApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin, User")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             try
             {
                 var existingLog = await _fishingLogService.GetFishingLogByIdAsync(id);
+                if (existingLog == null) return NotFound();
                 ValidateOwnership(existingLog.UserId);
                 await _fishingLogService.DeleteFishingLogAsync(id);
                 return NoContent();

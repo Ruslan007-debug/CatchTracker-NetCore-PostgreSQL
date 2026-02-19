@@ -9,6 +9,6 @@ namespace CatchTrackerApi.Interfaces.RepoInterfaces
         Task<FishType?> GetByIdAsync(int id);
         Task<FishType?> DeleteAsync(int id);
         Task<FishType> CreateAsync(FishType fishTypeModel);
-        Task<FishType> UpdateAsync(int id, FishType fishTypeModel);
+        Task<FishType?> UpdateAsync(int id, FishType fishTypeModel);
     }
 }

@@ -100,7 +100,7 @@ namespace CatchTrackerApi.Controllers
                 return StatusCode(500, new { message = "An error occurred during logout.", details = ex.Message });
             }
         }
-
+        [Authorize]
         [HttpGet("me")]
         public async Task<IActionResult> GetCurrentUser()
         {
