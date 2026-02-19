@@ -1,0 +1,151 @@
+.my-logs-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f4f7f6;
+    min-height: 100vh;
+}
+
+.logs-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 20px;
+}
+
+.back-home-btn {
+    padding: 10px 20px;
+    background: #2c3e50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* Сітка карток */
+.logs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+.fishing-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+    overflow: hidden;
+}
+
+.fishing-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Верхня частина картки */
+.card-banner {
+    height: 250px;              /* Збільшили висоту */
+    width: 100%;
+    background-size: cover;     /* ✅ Повне покриття */
+    background-position: center center;  /* ✅ По центру */
+    background-repeat: no-repeat;
+    position: relative;
+    border-radius: 12px 12px 0 0;  /* Закруглені кути зверху */
+    overflow: visible;           /* Обрізає все що виходить за межі */
+}
+
+.catch-date {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+
+.fish-avatar {
+    position: absolute;
+    bottom: -30px;
+    right: 5px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 1px solid white;
+    background: #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    z-index: 10;
+}
+
+.fish-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 85% center;
+    border-radius: 50%;
+}
+
+/* Контент картки */
+.card-body {
+    padding: 40px 20px 20px;
+}
+
+.main-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.weight-badge {
+    background: #e74c3c;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-weight: bold;
+}
+
+.location-text {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+    margin: 10px 0 20px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 12px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-item .label {
+    font-size: 0.75rem;
+    color: #95a5a6;
+    text-transform: uppercase;
+}
+
+.info-item .value {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.card-footer {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.place-desc {
+    font-size: 1rem;
+    color: #0c0e0f;
+    line-height: 1.4;
+    font-style: italic;
+}

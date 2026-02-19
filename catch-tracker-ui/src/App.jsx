@@ -7,6 +7,7 @@ import { ToastContainer } from 'react-toastify';
 import FishTypes from './pages/FishTypes';
 import Places from './pages/Places';
 import LeaderBoard from './pages/LeaderBoard';
+import UserLogs from './pages/UserLogs'
 
 // Захист: Тільки для тих, хто НЕ залогінився (Login, Register)
 const PublicRoute = ({ children }) => {
@@ -48,6 +49,9 @@ function App() {
                     } />
                     <Route path="/leaderboard" element={
                         <ProtectedRoute><LeaderBoard /></ProtectedRoute>
+                    } />
+                    <Route path="/userLogs" element={
+                        <ProtectedRoute><UserLogs /></ProtectedRoute>
                     } />
 
                     {/* Автоматичний редірект: якщо зайшов на "/", кидаємо на головну */}

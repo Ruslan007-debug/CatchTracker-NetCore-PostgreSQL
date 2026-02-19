@@ -34,6 +34,7 @@ const MainPage = () =>
                 <button onClick={() =>navigate("/fishTypes")}>Види риб</button>
                 <button onClick={() =>navigate("/places")}>Місця риболовлі</button>
                 <button onClick={() =>navigate("/leaderboard")}>Таблиця лідерів</button>
+                <button onClick={() =>navigate("/userLogs")}>Мої улови</button>
             </main>
         </div>
         );
