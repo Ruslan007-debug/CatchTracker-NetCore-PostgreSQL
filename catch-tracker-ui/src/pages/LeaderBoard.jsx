@@ -1,105 +1,115 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { getLeaderboard } from "../api/fishingLogs.api";
 import '../CSS/LeaderBoard.css';
 
+const LeaderBoard = () => {
+    const navigate = useNavigate();
+    const [leaderboard, setLeaderboard] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [selectedFish, setSelectedFish] = useState("Всі");
 
+    const loadData = async () => {
+        setLoading(true);
+        try {
+            // Отримуємо актуальний топ-100 уловів
+            const data = await getLeaderboard(100);
+            setLeaderboard(data);
+        } catch (error) {
+            console.error('Помилка завантаження:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
-const LeaderBoard =()=>
-    {
-        const navigate = useNavigate();
-        const [leaderboard, setLeaderboard] = useState([]);
-        const [loading, setLoading] = useState(false);
-        const [selectedFish, setSelectedFish] = useState("Всі");
+    useEffect(() => { loadData() }, []);
 
-        const loadLeaderboard=async()=>
-            {
-                setLoading(true);
-                try
-                {
-                    const data = await getLeaderboard(50);
-                    setLeaderboard(data);
+    // ЦЕ КЛЮЧОВИЙ МОМЕНТ:
+    // Ми беремо всі унікальні назви риб, які ВЖЕ є в отриманному списку рекордів.
+    // Якщо ви додали Лина, і він потрапив у топ-100, він автоматично з'явиться тут.
+    const dynamicFishTypes = useMemo(() => {
+        const names = leaderboard.map(log => log.fishTypeName);
+        // Set прибере дублікати, а filter прибере пусті значення
+        return ["Всі", ...new Set(names)].filter(Boolean).sort();
+    }, [leaderboard]);
 
-                }
-                catch(error)
-                {
-                    console.error('Помилка:', error);
-                }
-                finally
-                {
-                    setLoading(false);
-                }
-            };
-            useEffect(()=>{loadLeaderboard()},[]);
-
-            
-        const filteredData = leaderboard.filter(log => 
-            {
+    const filteredData = leaderboard.filter(log => {
         if (selectedFish === "Всі") return true;
-        // Приводимо до нижнього регістру для надійного порівняння
-        return log.fishTypeName.toLowerCase().includes(selectedFish.toLowerCase());
-            });
+        return log.fishTypeName === selectedFish;
+    });
 
-        return (
-            <div className="leaderboard-page">
-                <div className="page-header">
+    return (
+        <div className="leaderboard-page">
+            <div className="page-header">
+                <div className="header-content">
                     <h1>🏆 Таблиця лідерів</h1>
-                    <div className="header-controls">
-                        {/* 3. Випадаючий список */}
-                        <div className="filter-container">
-                            <label htmlFor="fish-filter">Фільтр по рибі: </label>
-                            <select 
-                                id="fish-filter"
-                                value={selectedFish} 
-                                onChange={(e) => setSelectedFish(e.target.value)}
-                                className="fish-select"
-                            >
-                                <option value="Всі">Всі види</option>
-                                <option value="Короп">Короп</option>
-                                <option value="Окунь">Окунь</option>
-                                <option value="Щука">Щука</option>
-                                <option value="Судак">Судак</option>
-                            </select>
-                        </div>
-                        
-                        <button onClick={() => navigate('/MainPage')} className="back-btn">
-                            ← На головну
-                        </button>
-                    </div>
+                    <p className="header-subtitle">Тут відображаються тільки рекордні улови</p>
                 </div>
+                
+                <div className="header-controls">
+                    <div className="filter-group">
+                        <label>Вид риби серед рекордів:</label>
+                        <select 
+                            value={selectedFish} 
+                            onChange={(e) => setSelectedFish(e.target.value)}
+                            className="fish-select"
+                        >
+                            {dynamicFishTypes.map(name => (
+                                <option key={name} value={name}>
+                                    {name === "Всі" ? "✨ Всі види" : `🐟 ${name}`}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    
+                    <button onClick={() => navigate('/MainPage')} className="back-btn">
+                        ← На головну
+                    </button>
+                </div>
+            </div>
 
-                {loading ? (
-                    <div className="loading"><p>⏳ Завантаження...</p></div>
-                ) : (
-                    <div className="leaderboard-container">
+            {loading ? (
+                <div className="leaderboard-loader">
+                    <div className="spinner"></div>
+                    <p>Оновлюємо рекорди...</p>
+                </div>
+            ) : (
+                <div className="leaderboard-container">
+                    <div className="table-wrapper">
                         <table className="leaderboard-table">
                             <thead>
                                 <tr>
-                                    <th>🏅 Місце</th>
-                                    <th>👤 Риболов</th>
-                                    <th>🐟 Вид риби</th>
-                                    <th>⚖️ Вага (кг)</th>
-                                    <th>🏞️ Місце</th>
-                                    <th>📅 Дата</th>
+                                    <th>Місце</th>
+                                    <th>Риболов</th>
+                                    <th>Вид риби</th>
+                                    <th>Вага</th>
+                                    <th>Місце лову</th>
+                                    <th>Дата</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {filteredData.length === 0 ? (
                                     <tr>
-                                        <td colSpan="6" className="no-data">😕 Записів не знайдено</td>
+                                        <td colSpan="6" className="no-data">
+                                            <div className="empty-state">
+                                                <span>🐢</span>
+                                                <p>У категорії "{selectedFish}" поки порожньо.</p>
+                                            </div>
+                                        </td>
                                     </tr>
                                 ) : (
-                                    // 4. Використовуємо filteredData замість leaderboard
                                     filteredData.map((log, index) => (
-                                        <tr key={index} className={index === 0 ? 'gold' : index === 1 ? 'silver' : index === 2 ? 'bronze' : ''}>
-                                            <td className="rank">
+                                        <tr key={index} className={`row-rank-${index + 1}`}>
+                                            <td className="rank-cell">
                                                 {index === 0 ? "🥇" : index === 1 ? "🥈" : index === 2 ? "🥉" : index + 1}
                                             </td>
-                                            <td className="username">{log.userName}</td>
-                                            <td>{log.fishTypeName}</td>
-                                            <td className="weight">{log.weight} кг</td>
-                                            <td>{log.placeName}</td>
-                                            <td className="date">
+                                            <td className="user-cell"><strong>{log.userName}</strong></td>
+                                            <td className="fish-cell">{log.fishTypeName}</td>
+                                            <td className="weight-cell">
+                                                <span className="weight-badge">{log.weight} кг</span>
+                                            </td>
+                                            <td className="place-cell">📍 {log.placeName}</td>
+                                            <td className="date-cell">
                                                 {new Date(log.caughtAt).toLocaleDateString('uk-UA')}
                                             </td>
                                         </tr>
@@ -108,9 +118,10 @@ const LeaderBoard =()=>
                             </tbody>
                         </table>
                     </div>
-                )}
-            </div>
-        );
-    }
+                </div>
+            )}
+        </div>
+    );
+}
 
 export default LeaderBoard;

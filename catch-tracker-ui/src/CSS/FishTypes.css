@@ -1,11 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap');
+
+:root {
+  --bg: #080d0a;
+  --surface: #101810;
+  --surface2: #182018;
+  --border: rgba(255,255,255,0.07);
+  --text: #dff0d8;
+  --muted: #6a8f72;
+  --accent: #4ade80;
+  --radius: 14px;
+}
+
 /* Контейнер сторінки */
 .fish-types-page {
     max-width: 1000px;
     margin: 0 auto;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
+    padding: 28px 20px;
+    font-family: 'DM Sans', sans-serif;
+    background-color: #080d0a;
     min-height: 100vh;
+    color: #dff0d8;
 }
 
 /* Шапка з пошуком */
@@ -13,12 +27,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 30px;
-    gap: 20px;
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 28px;
+    gap: 16px;
+    background: #101810;
+    padding: 16px 20px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.07);
 }
 
 /* Контейнер пошуку */
@@ -31,51 +45,60 @@
 /* Поле пошуку */
 .search-input {
     width: 100%;
-    padding: 12px 45px 12px 15px;
-    font-size: 16px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
+    padding: 11px 42px 11px 14px;
+    font-size: 0.9rem;
+    font-family: 'DM Sans', sans-serif;
+    background: #182018;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 9px;
+    color: #dff0d8;
     outline: none;
-    transition: border-color 0.3s;
+    transition: border-color 0.2s;
 }
 
+.search-input::placeholder { color: #6a8f72; }
+
 .search-input:focus {
-    border-color: #4CAF50;
+    border-color: #4ade80;
 }
 
 /* Іконка пошуку */
 .search-icon {
     position: absolute;
-    right: 15px;
+    right: 13px;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 20px;
+    font-size: 16px;
     pointer-events: none;
-    color: #999;
+    color: #6a8f72;
 }
 
 /* Кнопка "На головну" */
 .home-button {
-    padding: 12px 24px;
-    background-color: #2196F3;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
+    padding: 10px 20px;
+    background-color: #182018;
+    color: #dff0d8;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 9px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
     font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.2s;
     white-space: nowrap;
 }
 
 .home-button:hover {
-    background-color: #1976D2;
+    border-color: #4ade80;
+    color: #4ade80;
 }
 
 /* Заголовок */
 .page-title {
-    font-size: 32px;
-    color: #333;
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: #4ade80;
     margin-bottom: 20px;
     text-align: center;
 }
@@ -83,65 +106,71 @@
 /* Інфо про пошук */
 .search-info {
     text-align: center;
-    color: #666;
-    font-size: 16px;
-    margin-bottom: 20px;
-    padding: 10px;
-    background: white;
+    color: #6a8f72;
+    font-size: 0.85rem;
+    margin-bottom: 18px;
+    padding: 9px 16px;
+    background: #101810;
+    border: 1px solid rgba(255,255,255,0.07);
     border-radius: 8px;
 }
+
+.search-info strong { color: #dff0d8; }
 
 /* Індикатор завантаження */
 .loading {
     text-align: center;
-    padding: 40px;
-    color: #666;
-    font-size: 18px;
+    padding: 48px;
+    color: #6a8f72;
+    font-size: 1rem;
 }
 
 /* Повідомлення про відсутність результатів */
 .no-results {
     text-align: center;
     padding: 60px 20px;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background: #101810;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+    color: #6a8f72;
 }
 
 .no-results p:first-child {
-    font-size: 32px;
-    margin-bottom: 15px;
+    font-size: 2rem;
+    margin-bottom: 12px;
 }
 
 .no-results p:last-child {
-    color: #999;
-    font-size: 16px;
+    color: #6a8f72;
+    font-size: 0.85rem;
+    opacity: 0.7;
 }
 
 /* Список типів риб */
 .fish-types-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
 }
 
 /* Картка одного типу */
 .fish-type-card {
     display: flex;
     align-items: center;
-    padding: 20px;
-    background: white;
-    border: 1px solid #e0e0e0;
-    border-radius: 12px;
-    transition: all 0.3s;
-    gap: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    padding: 16px 20px;
+    background: #101810;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+    transition: all 0.2s;
+    gap: 16px;
+    animation: fadeIn 0.3s ease-out;
 }
 
 .fish-type-card:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    transform: translateY(-3px);
-    border-color: #4CAF50;
+    border-color: #4ade80;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    background: #182018;
 }
 
 /* Іконка риби */
@@ -149,11 +178,12 @@
     width: 150px;
     height: 100px;
     flex-shrink: 0;
-    border-radius: 12px;
-    background-size: cover;        
-    background-position: center;   
-    background-repeat: no-repeat;  
-    background-color: #e3f2fd;     
+    border-radius: 10px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #182018;
+    border: 1px solid rgba(255,255,255,0.07);
 }
 
 /* Інформація про рибу */
@@ -163,54 +193,59 @@
     align-items: center;
     flex-wrap: wrap;
     gap: 8px;
-    font-size: 16px;
+    font-size: 0.92rem;
     line-height: 1.5;
 }
 
 /* Назва риби */
 .fish-name {
-    font-weight: bold;
-    color: #333;
-    font-size: 20px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: #dff0d8;
+    font-size: 1.1rem;
 }
 
 /* Розділювач */
 .separator {
-    color: #999;
+    color: rgba(255,255,255,0.07);
     font-weight: normal;
 }
 
 /* Опис */
 .fish-description {
-    color: #030202;
-    font-size: 20px;
+    color: #6a8f72;
+    font-size: 0.88rem;
 }
 
 /* Кнопка деталей */
 .details-btn {
-    width: 45px;
-    height: 45px;
-    border: none;
-    background: #f5f5f5;
-    border-radius: 10px;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255,255,255,0.07);
+    background: #182018;
+    border-radius: 9px;
     cursor: pointer;
-    font-size: 22px;
-    transition: all 0.3s;
+    font-size: 18px;
+    transition: all 0.2s;
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .details-btn:hover {
-    background: #4CAF50;
-    transform: scale(1.1);
+    background: #4ade80;
+    border-color: #4ade80;
+    transform: scale(1.08);
 }
 
 /* Кількість результатів */
 .results-count {
     text-align: center;
-    color: #999;
-    font-size: 14px;
-    margin-top: 20px;
-    padding: 10px;
+    color: #6a8f72;
+    font-size: 0.78rem;
+    margin-top: 18px;
+    padding: 8px;
 }
 
 /* Адаптивність для мобільних */
@@ -225,24 +260,22 @@
     }
 
     .fish-type-card {
-        padding: 15px;
+        padding: 14px;
     }
 
     .fish-icon {
-        width: 50px;
-        height: 50px;
-        font-size: 30px;
+        width: 60px;
+        height: 60px;
     }
 
     .fish-name {
-        font-size: 18px;
+        font-size: 1rem;
     }
 
     .fish-info {
         flex-direction: column;
         align-items: flex-start;
-        gap: 5px;
-        text-align: center;
+        gap: 4px;
     }
 
     .separator {
@@ -252,16 +285,85 @@
 
 /* Анімація появи карток */
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
-.fish-type-card {
-    animation: fadeIn 0.3s ease-out;
+/* scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #182018; border-radius: 3px; }
+
+/* Рядок з назвою та бейджем */
+.fish-name-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 5px;
+}
+
+/* Загальний стиль бейджа */
+.nature-badge {
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Стиль для хижака */
+.nature-badge.predator {
+    background: rgba(255, 71, 71, 0.2);
+    color: #ff4747;
+    border: 1px solid rgba(255, 71, 71, 0.4);
+}
+
+/* Стиль для мирної риби */
+.nature-badge.peaceful {
+    background: rgba(74, 222, 128, 0.2);
+    color: #4ade80;
+    border: 1px solid rgba(74, 222, 128, 0.4);
+}
+
+/* Контейнер для додаткових деталей */
+.fish-details-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    color: #aaa;
+}
+
+.separator {
+    margin: 0 8px;
+    opacity: 0.3;
+}
+
+.type-filter {
+    display: flex;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 4px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.filter-btn {
+    background: transparent;
+    border: none;
+    color: #888;
+    padding: 6px 14px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: 0.3s;
+}
+
+.filter-btn:hover {
+    color: #fff;
+}
+
+.filter-btn.active {
+    background: #4ade80; /* Зелений акцент */
+    color: #05140a;
+    font-weight: bold;
 }

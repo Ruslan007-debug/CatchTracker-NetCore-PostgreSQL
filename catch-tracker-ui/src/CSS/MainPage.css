@@ -230,7 +230,7 @@ body {
 }
 
 .dock-btn__icon { font-size: 1.1rem; font-weight: 700; }
-.dock-btn__count { font-size: 0.85rem; font-weight: 800; }
+.dock-btn__count { font-size: 0.9rem; font-weight: 800; }
 
 .dock-btn__pulse {
   position: absolute;
@@ -594,7 +594,70 @@ body {
 }
 .img-select__option:hover { background: rgba(255,255,255,0.05); }
 .img-select__option--active { background: rgba(74,222,128,0.1); }
+/* Усі попередні стилі залишаються */
 
+.pond-layout__logs {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  height: calc(100vh - 110px); /* 🟢 фіксована висота, щоб скрол працював */
+  overflow: hidden; /* приховує зайвий вміст */
+}
+
+/* Нова обгортка, в якій скроляться саме логи */
+.logs-scrollable {
+  flex: 1;
+  overflow-y: auto; /* 🟢 дозволяє вертикальний скрол */
+  overflow-x: hidden;
+  padding: 16px;
+}
+
+/* Можна залишити старий .logs-grid як є */
+.logs-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Додатково — стилізуємо скрол */
+.logs-scrollable::-webkit-scrollbar {
+  width: 8px;
+}
+.logs-scrollable::-webkit-scrollbar-thumb {
+  background: var(--surface2);
+  border-radius: 10px;
+}
+.logs-scrollable::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+/* ==== SCROLLABLE RIGHT PANEL ==== */
+.pond-layout__logs {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  height: calc(100vh - 110px);
+  overflow: hidden;
+}
+
+.logs-scrollable {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 16px;
+}
+
+.logs-scrollable::-webkit-scrollbar {
+  width: 8px;
+}
+.logs-scrollable::-webkit-scrollbar-thumb {
+  background: var(--surface2);
+  border-radius: 10px;
+}
+.logs-scrollable::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
 /* Scrollbar */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 10px; }

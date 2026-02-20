@@ -1,42 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap');
+
+:root {
+  --bg: #080d0a;
+  --surface: #101810;
+  --surface2: #182018;
+  --border: rgba(255,255,255,0.07);
+  --text: #dff0d8;
+  --muted: #6a8f72;
+  --accent: #4ade80;
+  --radius: 14px;
+}
+
+/* Контейнер сторінки */
 .leaderboard-page {
     min-height: 100vh;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-    padding: 20px;
+    background: #080d0a;
+    padding: 28px 20px;
+    font-family: 'DM Sans', sans-serif;
+    color: #dff0d8;
 }
 
 /* Шапка */
 .page-header {
     max-width: 1200px;
-    margin: 0 auto 30px;
+    margin: 0 auto 32px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 30px;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 16px 20px;
+    background: #101810;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.07);
 }
 
 .page-header h1 {
     margin: 0;
-    font-size: 32px;
-    color: #333;
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: #4ade80;
 }
 
 .back-btn {
-    padding: 12px 24px;
-    background: #2196F3;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
+    padding: 10px 20px;
+    background: #182018;
+    color: #dff0d8;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 9px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: all 0.2s;
 }
 
 .back-btn:hover {
-    background: #1976D2;
-    transform: translateY(-2px);
+    border-color: #4ade80;
+    color: #4ade80;
 }
 
 /* Завантаження */
@@ -46,18 +66,18 @@
 }
 
 .loading p {
-    font-size: 24px;
-    color: #666;
+    font-size: 1.2rem;
+    color: #6a8f72;
 }
 
 /* Контейнер таблиці */
 .leaderboard-container {
     max-width: 1200px;
     margin: 0 auto;
-    background: white;
-    border-radius: 12px;
-    padding: 30px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    background: #101810;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+    padding: 24px;
     overflow-x: auto;
 }
 
@@ -69,141 +89,151 @@
 }
 
 .leaderboard-table thead {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
+    background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+    color: #080d0a;
 }
 
 .leaderboard-table th {
-    padding: 18px 15px;
+    padding: 16px 14px;
     text-align: left;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 0.9rem;
     white-space: nowrap;
 }
 
 .leaderboard-table tbody tr {
-    border-bottom: 1px solid #f0f0f0;
-    transition: all 0.3s;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    transition: all 0.2s;
 }
 
 .leaderboard-table tbody tr:hover {
-    background: #f9f9f9;
-    transform: scale(1.01);
+    background: #182018;
 }
 
 .leaderboard-table td {
-    padding: 18px 15px;
-    font-size: 15px;
+    padding: 16px 14px;
+    font-size: 0.9rem;
+    color: #dff0d8;
 }
 
 /* Топ 3 медалі */
 .leaderboard-table .gold {
-    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 165, 0, 0.15) 100%);
+    border-left: 3px solid #FFD700;
     font-weight: bold;
-    color: #333;
 }
 
 .leaderboard-table .silver {
-    background: linear-gradient(135deg, #C0C0C0 0%, #A8A8A8 100%);
+    background: linear-gradient(135deg, rgba(192, 192, 192, 0.15) 0%, rgba(168, 168, 168, 0.15) 100%);
+    border-left: 3px solid #C0C0C0;
     font-weight: bold;
-    color: #333;
 }
 
 .leaderboard-table .bronze {
-    background: linear-gradient(135deg, #CD7F32 0%, #B8860B 100%);
+    background: linear-gradient(135deg, rgba(205, 127, 50, 0.15) 0%, rgba(184, 134, 11, 0.15) 100%);
+    border-left: 3px solid #CD7F32;
     font-weight: bold;
-    color: #333;
 }
 
 /* Ранг */
 .rank {
     text-align: center;
-    font-size: 28px;
+    font-size: 1.5rem;
     width: 80px;
 }
 
 .medal {
-    font-size: 32px;
+    font-size: 2rem;
 }
 
 .rank-number {
-    font-size: 20px;
+    font-size: 1.1rem;
     font-weight: 600;
-    color: #666;
+    color: #6a8f72;
 }
 
 /* Користувач */
 .username {
     font-weight: 600;
-    color: #333;
-    font-size: 16px;
+    color: #dff0d8;
+    font-size: 0.95rem;
 }
 
 /* Вага */
 .weight {
     font-weight: 700;
-    color: #316933;
-    font-size: 17px;
+    color: #4ade80;
+    font-size: 1rem;
 }
 
 /* Дата */
 .date {
-    color: #3b3b3b;
-    font-size: 14px;
+    color: #6a8f72;
+    font-size: 0.85rem;
 }
 
 /* Немає даних */
 .no-data {
     text-align: center;
     padding: 60px 20px;
-    font-size: 20px;
-    color: #999;
+    font-size: 1.1rem;
+    color: #6a8f72;
 }
 
 /* Статистика */
 .stats {
     text-align: center;
     padding-top: 20px;
-    border-top: 2px solid #f0f0f0;
-    color: #666;
-    font-size: 16px;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    color: #6a8f72;
+    font-size: 0.9rem;
 }
 
 .stats strong {
-    color: #333;
-    font-size: 18px;
+    color: #dff0d8;
+    font-size: 1rem;
 }
 
+/* Контроли в шапці */
 .header-controls {
     display: flex;
-    flex-direction: column; /* Ставить фільтр під кнопку на мобільних */
+    flex-direction: column;
     align-items: flex-end;
     gap: 10px;
 }
 
 .fish-select {
     padding: 8px 12px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    background-color: white;
-    font-size: 14px;
+    border-radius: 9px;
+    border: 1px solid rgba(255,255,255,0.07);
+    background: #182018;
+    color: #dff0d8;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
     cursor: pointer;
     outline: none;
+    transition: border-color 0.2s;
 }
 
 .fish-select:focus {
-    border-color: #4CAF50;
+    border-color: #4ade80;
+}
+
+.fish-select option {
+    background: #182018;
+    color: #dff0d8;
 }
 
 .filter-container label {
-    font-weight: bold;
-    font-size: 14px;
-    margin-right: 5px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    margin-right: 8px;
+    color: #dff0d8;
 }
 
 @media (min-width: 600px) {
     .header-controls {
-        flex-direction: row; /* На великих екранах в один рядок */
+        flex-direction: row;
         align-items: center;
     }
 }
@@ -217,24 +247,63 @@
     }
 
     .page-header h1 {
-        font-size: 24px;
+        font-size: 1.5rem;
+    }
+
+    .leaderboard-container {
+        padding: 16px;
     }
 
     .leaderboard-table {
-        font-size: 13px;
+        font-size: 0.8rem;
     }
 
     .leaderboard-table th,
     .leaderboard-table td {
-        padding: 12px 8px;
+        padding: 10px 8px;
     }
 
     .rank {
         width: 60px;
-        font-size: 20px;
+        font-size: 1.2rem;
     }
 
     .medal {
-        font-size: 24px;
+        font-size: 1.5rem;
     }
+
+    .header-controls {
+        align-items: center;
+    }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { 
+    width: 5px; 
+    height: 5px;
+}
+
+::-webkit-scrollbar-track { 
+    background: transparent; 
+}
+
+::-webkit-scrollbar-thumb { 
+    background: #182018; 
+    border-radius: 3px; 
+}
+
+/* Анімація */
+@keyframes fadeIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(8px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
+}
+
+.leaderboard-table tbody tr {
+    animation: fadeIn 0.3s ease-out;
 }
