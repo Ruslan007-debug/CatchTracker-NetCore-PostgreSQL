@@ -9,6 +9,7 @@ import pond1Img from "/images/ponds/notPredatorPond.jpg";
 import pond2Img from "/images/ponds/PredatorPond.jpg";
 import "../CSS/MainPage.css";
 
+// =================== Конфігурація ставків ===================
 const PONDS = [
   {
     id: 1,
@@ -23,7 +24,7 @@ const PONDS = [
       { x: 62, y: 8, placeId: 1 },
       { x: 48, y: 18, placeId: 8 },
       { x: 81, y: 38, placeId: 2 },
-      { x: 73, y: 82, placeId: 4 },
+      { x: 73, y: 78, placeId: 4 },
       { x: 24, y: 80, placeId: 7 },
     ],
   },
@@ -36,17 +37,17 @@ const PONDS = [
     accent: "#f97316",
     accentDark: "#7c2d12",
     docks: [
-      { x: 48, y: 12 },
-      { x: 88, y: 35 },
-      { x: 80, y: 70 },
-      { x: 52, y: 88 },
-      { x: 22, y: 82 },
-      { x: 8, y: 52 },
+      { x: 51.5, y: 18, placeId: 14 },
+      { x: 84, y: 25, placeId: 10 },
+      { x: 88, y: 65, placeId: 11 },
+      { x: 50, y: 80, placeId: 13 },
+      { x: 18, y: 80, placeId: 12 },
+      { x: 13, y: 47, placeId: 9 },
     ],
   },
 ];
 
-// --- IMAGE SELECT ---
+// =================== Компонент вибору зображення ===================
 const ImageSelect = ({ options, value, onChange, placeholder, getLabel, getImage, getId }) => {
   const [open, setOpen] = useState(false);
   const selected = options.find((o) => getId(o) === value);
@@ -90,11 +91,11 @@ const ImageSelect = ({ options, value, onChange, placeholder, getLabel, getImage
   );
 };
 
-// --- CATCH FORM MODAL ---
-const CatchForm = ({ pond, fishTypes, places, onClose, onSave, editingLog }) => {
+// =================== Форма додавання/редагування ===================
+const CatchForm = ({ pond, fishTypes, places, onClose, onSave, editingLog, initialPlaceId }) => {
   const [form, setForm] = useState({
     fishTypeId: editingLog?.fishType?.id ?? "",
-    placeId: editingLog?.place?.id ?? "",
+    placeId: editingLog?.place?.id ?? initialPlaceId ?? "",
     trophy: editingLog?.trophy ?? "",
     weight: editingLog?.weight ?? "",
     bait: editingLog?.bait ?? "",
@@ -132,7 +133,6 @@ const CatchForm = ({ pond, fishTypes, places, onClose, onSave, editingLog }) => 
           <p className="modal__sub">{pond.name} · {pond.subtitle}</p>
           <button className="modal__close" onClick={onClose}>✕</button>
         </div>
-
         <form className="modal__body" onSubmit={handleSubmit}>
           <div className="form-row">
             <div className="form-group">
@@ -160,7 +160,6 @@ const CatchForm = ({ pond, fishTypes, places, onClose, onSave, editingLog }) => 
               />
             </div>
           </div>
-
           <div className="form-row">
             <div className="form-group">
               <label>🏆 Трофей</label>
@@ -173,7 +172,6 @@ const CatchForm = ({ pond, fishTypes, places, onClose, onSave, editingLog }) => 
                 onChange={(e) => setForm({ ...form, weight: e.target.value })} />
             </div>
           </div>
-
           <div className="form-row">
             <div className="form-group">
               <label>🪱 Наживка</label>
@@ -186,7 +184,6 @@ const CatchForm = ({ pond, fishTypes, places, onClose, onSave, editingLog }) => 
                 onChange={(e) => setForm({ ...form, distance: e.target.value })} />
             </div>
           </div>
-
           <button type="submit" className="modal__submit" style={{ background: pond.accent }} disabled={saving}>
             {saving ? "Збереження..." : editingLog ? "Зберегти зміни ✓" : "Зареєструвати улов 🎣"}
           </button>
@@ -196,7 +193,7 @@ const CatchForm = ({ pond, fishTypes, places, onClose, onSave, editingLog }) => 
   );
 };
 
-// --- LOG CARD ---
+// =================== Картка улову ===================
 const LogCard = ({ log, onEdit, onDelete, accent }) => {
   const [confirmDelete, setConfirmDelete] = useState(false);
   return (
@@ -218,7 +215,6 @@ const LogCard = ({ log, onEdit, onDelete, accent }) => {
           {log.distance > 0 && <span>🎣 {log.distance} м</span>}
           {log.trophy && <span>🏆 {log.trophy}</span>}
         </div>
-        <div className="log-card__date">{new Date(log.time).toLocaleDateString("uk-UA")}</div>
         <div className="log-card__actions">
           <button className="lcbtn lcbtn--edit" onClick={() => onEdit(log)}>✏️ Редагувати</button>
           {confirmDelete ? (
@@ -236,15 +232,12 @@ const LogCard = ({ log, onEdit, onDelete, accent }) => {
   );
 };
 
-// --- DOCK MARKER ---
+// =================== Маркер кладки ===================
 const DockMarker = ({ dock, logs, places, pond, onAddClick }) => {
   const [showPopup, setShowPopup] = useState(false);
-
   const place = places.find((p) => p.id === dock.placeId);
   const dockLogs = logs.filter((l) => (l.place?.id ?? l.placeId) === dock.placeId);
   const count = dockLogs.length;
-
-  // Динамічний клас для відкриття попапу вниз, якщо точка занадто високо
   const popupClass = dock.y < 30 ? "dock-popup dock-popup--down" : "dock-popup";
 
   return (
@@ -255,75 +248,55 @@ const DockMarker = ({ dock, logs, places, pond, onAddClick }) => {
       onMouseLeave={() => setShowPopup(false)}
     >
       {showPopup && (
-        <div className={popupClass}>
+        <div className={popupClass} style={{ "--accent": pond.accent }}>
           <div className="dock-popup__header" style={{ borderColor: pond.accent }}>
             <span className="dock-popup__name">{place?.name || "Кладка"}</span>
             <span className="dock-popup__count" style={{ color: pond.accent }}>🎣 {count}</span>
           </div>
-          {dockLogs.length === 0 ? (
-            <p className="dock-popup__empty"></p>
-          ) : (
-            <ul className="dock-popup__list">
-              {dockLogs.map((log) => (
-                <li key={log.id} className="dock-popup__item">
-                  {log.fishType?.imageUrl && (
-                    <img src={log.fishType.imageUrl} alt="" className="dock-popup__fish-img" />
-                  )}
-                  <div className="dock-popup__fish-info">
-                    <span className="dock-popup__fish-name">{log.fishType?.typeName || "—"}</span>
-                    <span className="dock-popup__fish-weight" style={{ color: pond.accent }}>{log.weight} кг</span>
-                  </div>
-                  <span className="dock-popup__fish-date">
-                    {new Date(log.time).toLocaleDateString("uk-UA", { day: 'numeric', month: 'short' })}
-                  </span>
-                </li>
-              ))}
-            </ul>
-          )}
+          <ul className="dock-popup__list">
+            {dockLogs.slice(0, 5).map((log) => (
+              <li key={log.id} className="dock-popup__item">
+                {log.fishType?.imageUrl && (
+                  <img src={log.fishType.imageUrl} alt="" className="dock-popup__fish-img" />
+                )}
+                <div className="dock-popup__fish-info">
+                  <span className="dock-popup__fish-name">{log.fishType?.typeName || "—"}</span>
+                  <span className="dock-popup__fish-weight">{log.weight} кг</span>
+                </div>
+              </li>
+            ))}
+          </ul>
           <button
             className="dock-popup__add"
             style={{ background: pond.accent }}
-            onClick={(e) => { e.stopPropagation(); onAddClick(); }}
+            onClick={(e) => { e.stopPropagation(); onAddClick(dock.placeId); }}
           >
             + Додати улов
           </button>
         </div>
       )}
-
       <button
         className={`dock-btn ${count > 0 ? "dock-btn--has-catches" : ""}`}
         style={{ "--accent": pond.accent }}
-        onClick={onAddClick}
+        onClick={() => onAddClick(dock.placeId)}
       >
-        {count > 0 ? (
-          <span className="dock-btn__count">{count}</span>
-        ) : (
-          <span className="dock-btn__icon">+</span>
-        )}
-        {count === 0 && <span className="dock-btn__pulse" />}
+        {count > 0 ? <span className="dock-btn__count">{count}</span> : <span className="dock-btn__icon">+</span>}
       </button>
     </div>
   );
 };
 
-const PondMap = ({ pond, logs, places, onDockClick }) => {
-  return (
-    <div className="pond-map">
-      <img src={pond.photo} alt={pond.name} className="pond-map__img" draggable={false} />
-      {pond.docks.map((dock, i) => (
-        <DockMarker
-          key={i}
-          dock={dock}
-          logs={logs}
-          places={places}
-          pond={pond}
-          onAddClick={onDockClick}
-        />
-      ))}
-    </div>
-  );
-};
+// =================== Карта водойми ===================
+const PondMap = ({ pond, logs, places, onDockClick }) => (
+  <div className="pond-map">
+    <img src={pond.photo} alt={pond.name} className="pond-map__img" draggable={false} />
+    {pond.docks.map((dock, i) => (
+      <DockMarker key={i} dock={dock} logs={logs} places={places} pond={pond} onAddClick={onDockClick} />
+    ))}
+  </div>
+);
 
+// =================== Головна сторінка ===================
 const MainPage = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -335,6 +308,7 @@ const MainPage = () => {
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editingLog, setEditingLog] = useState(null);
+  const [selectedPlaceId, setSelectedPlaceId] = useState(null);
 
   const pond = PONDS.find((p) => p.id === activePond);
   const pondLogs = logs.filter((log) => {
@@ -350,36 +324,58 @@ const MainPage = () => {
         setFishTypes(ft);
         setPlaces(pl);
         setLogs(lg);
-      } catch { toast.error("Помилка завантаження даних"); }
-      finally { setLoading(false); }
+      } catch {
+        toast.error("Помилка завантаження даних");
+      } finally {
+        setLoading(false);
+      }
     })();
   }, []);
 
   const handleSave = async (formData) => {
-    if (editingLog) {
-      const updated = await updateLog(editingLog.id, formData);
-      setLogs((prev) => prev.map((l) => (l.id === editingLog.id ? updated : l)));
-      toast.success("Улов оновлено! ✓");
-    } else {
-      const created = await createLog(formData);
-      setLogs((prev) => [...prev, created]);
-      toast.success("Улов зареєстровано! 🎣");
+    try {
+      if (editingLog) {
+        const updated = await updateLog(editingLog.id, formData);
+        setLogs((prev) => prev.map((l) => (l.id === editingLog.id ? updated : l)));
+        toast.success("Улов оновлено! ✓");
+      } else {
+        const created = await createLog(formData);
+        setLogs((prev) => [...prev, created]);
+        toast.success("Улов зареєстровано! 🎣");
+      }
+      setShowForm(false);
+      setEditingLog(null);
+      setSelectedPlaceId(null);
+    } catch {
+      toast.error("Помилка збереження");
     }
-    setEditingLog(null);
   };
 
-  const openAdd = () => { setEditingLog(null); setShowForm(true); };
-  const openEdit = (log) => { setEditingLog(log); setShowForm(true); };
+  const openAdd = (placeId = null) => {
+    setEditingLog(null);
+    setSelectedPlaceId(placeId);
+    setShowForm(true);
+  };
+
+  const openEdit = (log) => {
+    setEditingLog(log);
+    setSelectedPlaceId(null);
+    setShowForm(true);
+  };
+
   const handleDelete = async (id) => {
     try {
       await deleteLog(id);
       setLogs((prev) => prev.filter((l) => l.id !== id));
       toast.success("Улов видалено");
-    } catch { toast.error("Помилка видалення"); }
+    } catch {
+      toast.error("Помилка видалення");
+    }
   };
 
   return (
     <div className="main-page">
+      {/* ==== HEADER ==== */}
       <header className="main-header">
         <div className="main-header__brand">
           <span className="main-header__logo">🎣 Catch Tracker</span>
@@ -397,6 +393,7 @@ const MainPage = () => {
         </div>
       </header>
 
+      {/* ==== POND SWITCH ==== */}
       <div className="pond-tabs">
         {PONDS.map((p) => (
           <button
@@ -414,6 +411,7 @@ const MainPage = () => {
         ))}
       </div>
 
+      {/* ==== MAIN LAYOUT ==== */}
       <div className="pond-layout">
         <div className="pond-layout__map">
           <div className="pond-layout__map-header">
@@ -421,7 +419,7 @@ const MainPage = () => {
               <h2 style={{ color: pond.accent }}>{pond.emoji} {pond.name}</h2>
               <p className="pond-layout__hint">Натисни <strong>+</strong> біля кладки щоб додати улов</p>
             </div>
-            <button className="add-btn" style={{ background: pond.accent }} onClick={openAdd}>
+            <button className="add-btn" style={{ background: pond.accent }} onClick={() => openAdd()}>
               + Додати улов
             </button>
           </div>
@@ -437,16 +435,18 @@ const MainPage = () => {
             <h3>Улови на {pond.name}</h3>
             <span className="log-count" style={{ background: pond.accent }}>{pondLogs.length}</span>
           </div>
-          {!loading && pondLogs.length === 0 && (
-            <div className="pond-empty">
-              <div className="pond-empty__icon">🎣</div>
-              <p>Ще немає уловів</p>
+          <div className="logs-scrollable">
+            {!loading && pondLogs.length === 0 && (
+              <div className="pond-empty">
+                <div className="pond-empty__icon">🎣</div>
+                <p>Ще немає уловів</p>
+              </div>
+            )}
+            <div className="logs-grid">
+              {pondLogs.map((log) => (
+                <LogCard key={log.id} log={log} accent={pond.accent} onEdit={openEdit} onDelete={handleDelete} />
+              ))}
             </div>
-          )}
-          <div className="logs-grid">
-            {pondLogs.map((log) => (
-              <LogCard key={log.id} log={log} accent={pond.accent} onEdit={openEdit} onDelete={handleDelete} />
-            ))}
           </div>
         </div>
       </div>
@@ -456,9 +456,10 @@ const MainPage = () => {
           pond={pond}
           fishTypes={fishTypes}
           places={places}
-          onClose={() => { setShowForm(false); setEditingLog(null); }}
+          onClose={() => { setShowForm(false); setEditingLog(null); setSelectedPlaceId(null); }}
           onSave={handleSave}
           editingLog={editingLog}
+          initialPlaceId={selectedPlaceId}
         />
       )}
     </div>
