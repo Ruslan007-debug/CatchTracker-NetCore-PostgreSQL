@@ -4,7 +4,7 @@ namespace CatchTrackerApi.DTOs.PlaceDTOs
 {
     public class PlaceDTO
     {
-        public int Id { get; set; }
+        public int Id { get; set; }              
         [MaxLength(200)]
         public string Name { get; set; } = string.Empty;
         [MaxLength(200)]
